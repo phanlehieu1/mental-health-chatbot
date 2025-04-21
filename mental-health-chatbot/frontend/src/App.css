@@ -1,0 +1,357 @@
+/* Biến màu chung */
+:root {
+  --primary-color: #4a8bf5;
+  --primary-dark: #3c7cdd;
+  --sidebar-bg: #202123;
+  --sidebar-hover: #2e2e30;
+  --sidebar-active: #343541;
+  --chat-bg: #343541;
+  --user-msg-bg: #4a8bf5;
+  --bot-msg-bg: #444654;
+  --text-light: #ffffff;
+  --text-dark: #ececf1;
+  --border-color: #565869;
+  --input-bg: #40414f;
+  --scrollbar-bg: #343541;
+  --scrollbar-thumb: #565869;
+  --scrollbar-thumb-hover: #7c7e96;
+  --button-hover: #4a8bf5;
+  --content-max-width: 800px;
+  --content-padding: 1rem;
+}
+
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg) !important;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--chat-bg);
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* Layout chính */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background-color: var(--sidebar-bg);
+  transition: width 0.3s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.sidebar.closed {
+  width: 0;
+}
+
+.new-chat-button {
+  margin: 10px;
+  padding: 12px;
+  background-color: transparent;
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+  text-align: left;
+}
+
+.new-chat-button:hover {
+  background-color: var(--sidebar-hover);
+}
+
+.conversations-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.conversation-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.conversation-item:hover {
+  background-color: var(--sidebar-hover);
+}
+
+.conversation-item.active {
+  background-color: var(--sidebar-active);
+  border-left: 3px solid var(--primary-color);
+}
+
+.conversation-title {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-date {
+  font-size: 12px;
+  color: #888;
+  margin-top: 3px;
+}
+
+.conversation-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.delete-conversation-button {
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0 5px;
+  margin-left: 8px;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.delete-conversation-button:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.conversation-item:hover .delete-conversation-button {
+  opacity: 0.8;
+}
+
+/* Chat area */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chat header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--chat-bg);
+}
+
+.toggle-sidebar-button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.chat-title {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
+}
+
+/* Messages container */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message styles */
+.message {
+  display: flex;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.message-container {
+  display: flex;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.user-message .message-container {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+}
+
+.bot-avatar {
+  background-color: var(--primary-color);
+  margin-right: 12px;
+}
+
+.user-avatar {
+  background-color: var(--user-msg-bg);
+  margin-left: 12px;
+}
+
+.message-content {
+  background-color: var(--bot-msg-bg);
+  padding: 12px 16px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.user-message .message-content {
+  background-color: var(--user-msg-bg);
+}
+
+/* Loading animation */
+.loading {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.loading-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-light);
+  margin-right: 5px;
+  opacity: 0.6;
+  animation: loading 1.4s infinite ease-in-out both;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes loading {
+
+  0%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Chat input */
+.chat-input-form {
+  padding: 16px;
+  background-color: var(--chat-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input-wrapper {
+  display: flex;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-light);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.chat-input:focus {
+  border-color: var(--primary-color);
+}
+
+.send-button {
+  margin-left: 8px;
+  padding: 0 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+}
+
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
